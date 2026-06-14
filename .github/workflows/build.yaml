@@ -2,8 +2,6 @@ name: Build
 
 on:
   push:
-    tags:
-    - 'v*'
   workflow_dispatch:
 
 permissions:
@@ -25,15 +23,15 @@ jobs:
         - name: Linux
           platform: linux
           os: ubuntu-latest
-          archive: Z3R-linux-x64.tar.gz
-        - name: Mac Intel
-          platform: macos
-          os: macos-15-intel
-          archive: Z3R-macos-intel.tar.gz
-        - name: Mac Apple Silicon
-          platform: macos
-          os: macos-15
-          archive: Z3R-macos-apple-silicon.tar.gz
+          archive: Z3RLauncher.AppImage
+        #- name: Mac Intel
+        #  platform: macos
+        #  os: macos-15-intel
+        #  archive: Z3R-macos-intel.tar.gz
+        #- name: Mac Apple Silicon
+        #  platform: macos
+        #  os: macos-15
+        #  archive: Z3R-macos-apple-silicon.tar.gz
     steps:
     - uses: actions/checkout@v6
     - name: Install dependencies for Linux
@@ -59,39 +57,15 @@ jobs:
         APPIMAGETOOL_URL: https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
       run: |
         sudo apt install -y wget
-        mkdir -p AppDir/usr/bin AppDir/usr/share/Z3R AppDir/usr/share/applications AppDir/usr/share/icons/hicolor/scalable/apps dist
-        cc packaging/appimage/missing_assets_dialog.c $(sdl2-config --cflags --libs) -o z3r-missing-assets-dialog
-        install -Dm755 zelda3 AppDir/usr/bin/zelda3.real
-        install -Dm755 z3r-missing-assets-dialog AppDir/usr/bin/z3r-missing-assets-dialog
-        install -Dm644 zelda3.ini AppDir/usr/share/Z3R/zelda3.ini
-        install -Dm644 packaging/appimage/io.github.xander_haj.Z3R.linuxdeploy.desktop AppDir/io.github.xander_haj.Z3R.desktop
-        install -Dm644 packaging/flatpak/io.github.xander_haj.Z3R.svg AppDir/usr/share/icons/hicolor/scalable/apps/io.github.xander_haj.Z3R.svg
-        install -Dm644 packaging/flatpak/io.github.xander_haj.Z3R.svg AppDir/io.github.xander_haj.Z3R.svg
-
-        wget -q "${LINUXDEPLOY_URL}" -O linuxdeploy-x86_64.AppImage
-        chmod +x linuxdeploy-x86_64.AppImage
-        ./linuxdeploy-x86_64.AppImage --appimage-extract
-        mv squashfs-root linuxdeploy-root
-        ./linuxdeploy-root/AppRun \
-          --appdir AppDir \
-          --executable AppDir/usr/bin/zelda3.real \
-          --executable AppDir/usr/bin/z3r-missing-assets-dialog \
-          --desktop-file AppDir/io.github.xander_haj.Z3R.desktop \
-          --icon-file AppDir/io.github.xander_haj.Z3R.svg
-
-        install -Dm755 packaging/appimage/AppRun AppDir/AppRun
-        ln -sf ../../AppRun AppDir/usr/bin/z3r
-        install -Dm644 packaging/appimage/io.github.xander_haj.Z3R.desktop AppDir/usr/share/applications/io.github.xander_haj.Z3R.desktop
-        install -Dm644 packaging/appimage/io.github.xander_haj.Z3R.desktop AppDir/io.github.xander_haj.Z3R.desktop
-        ln -sf usr/share/icons/hicolor/scalable/apps/io.github.xander_haj.Z3R.svg AppDir/io.github.xander_haj.Z3R.svg
-
-        wget -q "${APPIMAGETOOL_URL}" -O appimagetool-x86_64.AppImage
-        chmod +x appimagetool-x86_64.AppImage
-        ./appimagetool-x86_64.AppImage --appimage-extract
-        mv squashfs-root appimagetool-root
-        ARCH=x86_64 ./appimagetool-root/AppRun AppDir dist/Z3R-linux-x64.AppImage
-        chmod +x dist/Z3R-linux-x64.AppImage
-        tar -czf dist/Z3R-linux-x64.AppImage.tar.gz -C dist Z3R-linux-x64.AppImage
+        SHARUN="https://raw.githubusercontent.com/pkgforge-dev/Anylinux-AppImages/refs/heads/main/useful-tools/quick-sharun.sh"
+        export ICON=io.github.xander_haj.Z3RLauncher.png
+        export DESKTOP=io.github.xander_haj.Z3RLauncher.desktop
+        export OUTPATH=./
+        export OUTNAME=Z3RLauncher.AppImage
+        chmod +x ./quick-sharun
+        ./quick-sharun ./z3r-launcher
+        ./quick-sharun --make-appimage
+        
     - name: Upload ${{ matrix.name }} artifact
       uses: actions/upload-artifact@v6
       with:
@@ -127,6 +101,7 @@ jobs:
         generate_release_notes: true
 
   build-windows:
+    if: false
     name: on Windows
     runs-on: windows-latest
     permissions:
