@@ -23,7 +23,7 @@ jobs:
         - name: Linux
           platform: linux
           os: ubuntu-latest
-          archive: Z3RLauncher.AppImage
+          archive: Z3R-linux-x64.tar.gz
         #- name: Mac Intel
         #  platform: macos
         #  os: macos-15-intel
