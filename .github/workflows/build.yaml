@@ -50,6 +50,7 @@ jobs:
         mkdir -p "dist/Z3R-${{ matrix.name }}"
         cp zelda3 zelda3.ini README.md LICENSE.txt "dist/Z3R-${{ matrix.name }}/"
         tar -czf "dist/${{ matrix.archive }}" -C "dist/Z3R-${{ matrix.name }}" .
+        mv "dist/Z3R-${{ matrix.name }}/zelda3" "dist/Z3R-${{ matrix.name }}/z3r"
     - name: Build Linux AppImage
       if: ${{ matrix.platform == 'linux' }}
       env:
@@ -61,9 +62,10 @@ jobs:
         export DESKTOP=./packaging/appimage/io.github.xander_haj.Z3R.desktop
         export OUTPATH=./
         export OUTNAME=Z3RLauncher.AppImage
+        export ADD_HOOKS="./packaging/appimage/launcher.hook"
         wget "$SHARUN" -O ./quick-sharun
         chmod +x ./quick-sharun
-        ./quick-sharun ./dist/Z3R-Linux/zelda3
+        ./quick-sharun ./dist/Z3R-Linux/z3r
         ./quick-sharun --make-appimage
         
     - name: Upload ${{ matrix.name }} artifact
