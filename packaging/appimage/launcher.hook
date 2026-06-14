@@ -62,4 +62,4 @@ ${data_dir}/zelda3_assets.dat" || true
 fi
 
 cd "${data_dir}"
-exec "${appdir}/usr/bin/zelda3.real" --config "${data_dir}/zelda3.ini" "$@"
+exec "${appdir}/bin/z3r" --config "${data_dir}/zelda3.ini" "$@"
