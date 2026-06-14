@@ -66,7 +66,7 @@ jobs:
         wget "$SHARUN" -O ./quick-sharun
         chmod +x ./quick-sharun
         ./quick-sharun ./dist/Z3R-Linux/z3r
-        cp ./packaging/appimage/launcher.hook /AppDir/bin/
+        cp ./packaging/appimage/launcher.hook ./AppDir/bin/
         ./quick-sharun --make-appimage
         
     - name: Upload ${{ matrix.name }} artifact
