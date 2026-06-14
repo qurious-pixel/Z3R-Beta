@@ -57,16 +57,19 @@ jobs:
         LINUXDEPLOY_URL: https://github.com/linuxdeploy/linuxdeploy/releases/download/1-alpha-20251107-1/linuxdeploy-x86_64.AppImage
         APPIMAGETOOL_URL: https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
       run: |
+        mkdir -p AppDir/bin AppDir/share/Z3R
+        cc packaging/appimage/missing_assets_dialog.c $(sdl2-config --cflags --libs) -o z3r-missing-assets-dialog
         SHARUN="https://raw.githubusercontent.com/pkgforge-dev/Anylinux-AppImages/refs/heads/main/useful-tools/quick-sharun.sh"
         export ICON=./packaging/appimage/io.github.xander_haj.Z3RLauncher.png
         export DESKTOP=./packaging/appimage/io.github.xander_haj.Z3R.desktop
         export OUTPATH=./
         export OUTNAME=Z3RLauncher.AppImage
-        #export ADD_HOOKS="launcher.hook"
+        export DEPLOY_PYTHON=1
         wget "$SHARUN" -O ./quick-sharun
         chmod +x ./quick-sharun
         ./quick-sharun ./dist/Z3R-Linux/z3r
         cp ./packaging/appimage/launcher.hook ./AppDir/bin/
+        cp z3r-missing-assets-dialog ./AppDir/bin/
         ./quick-sharun --make-appimage
         
     - name: Upload ${{ matrix.name }} artifact
