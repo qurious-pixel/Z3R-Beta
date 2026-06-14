@@ -62,7 +62,7 @@ jobs:
         export DESKTOP=./packaging/appimage/io.github.xander_haj.Z3R.desktop
         export OUTPATH=./
         export OUTNAME=Z3RLauncher.AppImage
-        export ADD_HOOKS="launcher.hook"
+        #export ADD_HOOKS="launcher.hook"
         wget "$SHARUN" -O ./quick-sharun
         chmod +x ./quick-sharun
         ./quick-sharun ./dist/Z3R-Linux/z3r
