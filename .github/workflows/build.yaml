@@ -65,6 +65,7 @@ jobs:
         export OUTPATH=./
         export OUTNAME=Z3RLauncher.AppImage
         export DEPLOY_PYTHON=1
+        export CORESYSPYTHON="false"
         wget "$SHARUN" -O ./quick-sharun
         chmod +x ./quick-sharun
         ./quick-sharun ./dist/Z3R-Linux/z3r
