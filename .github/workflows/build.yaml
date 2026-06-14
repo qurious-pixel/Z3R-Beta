@@ -56,10 +56,6 @@ jobs:
         LINUXDEPLOY_URL: https://github.com/linuxdeploy/linuxdeploy/releases/download/1-alpha-20251107-1/linuxdeploy-x86_64.AppImage
         APPIMAGETOOL_URL: https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
       run: |
-        pwd
-        ls -al .
-        ls -al packaging/
-        ls -al packaging/appimage/
         SHARUN="https://raw.githubusercontent.com/pkgforge-dev/Anylinux-AppImages/refs/heads/main/useful-tools/quick-sharun.sh"
         export ICON=./packaging/appimage/io.github.xander_haj.Z3RLauncher.png
         export DESKTOP=./packaging/appimage/io.github.xander_haj.Z3R.desktop
@@ -67,7 +63,7 @@ jobs:
         export OUTNAME=Z3RLauncher.AppImage
         wget "$SHARUN" -O ./quick-sharun
         chmod +x ./quick-sharun
-        ./quick-sharun ./dist/zelda3
+        ./quick-sharun ./dist/Z3R-Linux/zelda3
         ./quick-sharun --make-appimage
         
     - name: Upload ${{ matrix.name }} artifact
