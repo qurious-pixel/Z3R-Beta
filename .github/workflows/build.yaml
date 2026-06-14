@@ -58,8 +58,8 @@ jobs:
       run: |
         sudo apt install -y wget
         SHARUN="https://raw.githubusercontent.com/pkgforge-dev/Anylinux-AppImages/refs/heads/main/useful-tools/quick-sharun.sh"
-        export ICON=io.github.xander_haj.Z3RLauncher.png
-        export DESKTOP=io.github.xander_haj.Z3RLauncher.desktop
+        export ICON=packaging/appimage/io.github.xander_haj.Z3RLauncher.png
+        export DESKTOP=packaging/appimage/io.github.xander_haj.Z3RLauncher.desktop
         export OUTPATH=./
         export OUTNAME=Z3RLauncher.AppImage
         chmod +x ./quick-sharun
@@ -148,6 +148,7 @@ jobs:
         generate_release_notes: true
 
   build-flatpak:
+    if: false
     name: Flatpak for Linux
     runs-on: ubuntu-latest
     permissions:
