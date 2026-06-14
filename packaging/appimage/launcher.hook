@@ -24,7 +24,7 @@ set -- $rest
 
 export SDL_AUDIODRIVER="${SDL_AUDIODRIVER:-pulseaudio}"
 
-for lib_dir in "${appdir}/usr/lib" "${appdir}/usr/lib/x86_64-linux-gnu"; do
+for lib_dir in "${appdir}/lib" "${appdir}/usr/lib/x86_64-linux-gnu"; do
   if [ -d "${lib_dir}" ]; then
     export LD_LIBRARY_PATH="${lib_dir}${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
   fi
@@ -33,12 +33,12 @@ done
 mkdir -p "${data_dir}/saves"
 
 if [ ! -f "${data_dir}/zelda3.ini" ]; then
-  cp "${appdir}/usr/share/Z3R/zelda3.ini" "${data_dir}/zelda3.ini"
+  cp "${appdir}/share/Z3R/zelda3.ini" "${data_dir}/zelda3.ini"
 fi
 
 if [ ! -f "${data_dir}/zelda3_assets.dat" ]; then
-  if [ -x "${appdir}/usr/bin/z3r-missing-assets-dialog" ] &&
-      "${appdir}/usr/bin/z3r-missing-assets-dialog" "${data_dir}/zelda3_assets.dat"; then
+  if [ -x "${appdir}/bin/z3r-missing-assets-dialog" ] &&
+      "${appdir}/bin/z3r-missing-assets-dialog" "${data_dir}/zelda3_assets.dat"; then
     :
   elif command -v zenity >/dev/null 2>&1; then
     zenity --error \
