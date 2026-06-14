@@ -62,8 +62,9 @@ jobs:
         export DESKTOP=packaging/appimage/io.github.xander_haj.Z3RLauncher.desktop
         export OUTPATH=./
         export OUTNAME=Z3RLauncher.AppImage
+        wget "$SHARUN" -O ./quick-sharun
         chmod +x ./quick-sharun
-        ./quick-sharun ./z3r-launcher
+        ./quick-sharun ./dist/zelda3
         ./quick-sharun --make-appimage
         
     - name: Upload ${{ matrix.name }} artifact
