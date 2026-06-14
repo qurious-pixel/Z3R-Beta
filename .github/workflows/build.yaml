@@ -64,8 +64,8 @@ jobs:
         export DESKTOP=./packaging/appimage/io.github.xander_haj.Z3R.desktop
         export OUTPATH=./
         export OUTNAME=Z3RLauncher.AppImage
-        export DEPLOY_PYTHON=1
-        export CORESYSPYTHON="false"
+        #export DEPLOY_PYTHON=1
+        #export CORESYSPYTHON="false"
         wget "$SHARUN" -O ./quick-sharun
         chmod +x ./quick-sharun
         ./quick-sharun ./dist/Z3R-Linux/z3r
