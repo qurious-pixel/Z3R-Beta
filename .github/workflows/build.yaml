@@ -62,7 +62,7 @@ jobs:
         ls -al packaging/appimage/
         SHARUN="https://raw.githubusercontent.com/pkgforge-dev/Anylinux-AppImages/refs/heads/main/useful-tools/quick-sharun.sh"
         export ICON=./packaging/appimage/io.github.xander_haj.Z3RLauncher.png
-        export DESKTOP=./packaging/appimage/io.github.xander_haj.Z3RLauncher.desktop
+        export DESKTOP=./packaging/appimage/io.github.xander_haj.Z3R.desktop
         export OUTPATH=./
         export OUTNAME=Z3RLauncher.AppImage
         wget "$SHARUN" -O ./quick-sharun
