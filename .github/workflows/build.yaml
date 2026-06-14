@@ -70,6 +70,7 @@ jobs:
         ./quick-sharun ./dist/Z3R-Linux/z3r
         cp ./packaging/appimage/launcher.hook ./AppDir/bin/
         cp z3r-missing-assets-dialog ./AppDir/bin/
+        cp zelda3.ini ./AppDir/share/Z3R/
         ./quick-sharun --make-appimage
         
     - name: Upload ${{ matrix.name }} artifact
