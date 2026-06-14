@@ -62,10 +62,11 @@ jobs:
         export DESKTOP=./packaging/appimage/io.github.xander_haj.Z3R.desktop
         export OUTPATH=./
         export OUTNAME=Z3RLauncher.AppImage
-        export ADD_HOOKS="./packaging/appimage/launcher.hook"
+        export ADD_HOOKS="launcher.hook"
         wget "$SHARUN" -O ./quick-sharun
         chmod +x ./quick-sharun
         ./quick-sharun ./dist/Z3R-Linux/z3r
+        cp ./packaging/appimage/launcher.hook /AppDir/bin/
         ./quick-sharun --make-appimage
         
     - name: Upload ${{ matrix.name }} artifact
